@@ -21,10 +21,16 @@ def add_student(student: NewStudent):
         # 2. Insert Parent and Link if parent details are provided
         if student.parent:
             query_parent = """
-                INSERT INTO parents (first_name, last_name, phone, relationship)
-                VALUES (%s, %s, %s, %s)
+                INSERT INTO parents (first_name, last_name, phone, email, relationship)
+                VALUES (%s, %s, %s, %s, %s)
             """
-            cursor.execute(query_parent, (student.parent.first_name, student.parent.last_name, student.parent.phone, student.parent.relationship))
+            cursor.execute(query_parent, (
+                student.parent.first_name, 
+                student.parent.last_name, 
+                student.parent.phone, 
+                student.parent.email, 
+                student.parent.relationship
+            ))
             new_parent_id = cursor.lastrowid
 
             query_link = """

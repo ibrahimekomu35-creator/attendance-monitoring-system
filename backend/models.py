@@ -5,6 +5,7 @@ class ParentData(BaseModel):
     first_name: str
     last_name: str
     phone: str
+    email: Optional[str] = None
     relationship: str
 
 class NewStudent(BaseModel):

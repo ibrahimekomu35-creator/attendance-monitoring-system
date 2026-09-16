@@ -118,6 +118,7 @@ class ApiService {
     String? parentFirstName,
     String? parentLastName,
     String? parentPhone,
+    String? parentEmail,
     String? parentRelationship,
   }) async {
     final Map<String, dynamic> payload = {
@@ -136,6 +137,7 @@ class ApiService {
         'first_name': parentFirstName,
         'last_name': parentLastName,
         'phone': parentPhone,
+        'email': parentEmail,
         'relationship': parentRelationship,
       };
     }

@@ -26,9 +26,22 @@ class _AddStudentDialogState extends State<AddStudentDialog> {
   final parentFirstNameController = TextEditingController();
   final parentLastNameController = TextEditingController();
   final parentPhoneController = TextEditingController();
+  final parentEmailController = TextEditingController();
   String parentRelationship = 'Father';
 
   bool isLoading = false;
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    admNoController.dispose();
+    parentFirstNameController.dispose();
+    parentLastNameController.dispose();
+    parentPhoneController.dispose();
+    parentEmailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +118,20 @@ class _AddStudentDialogState extends State<AddStudentDialog> {
                 validator: (v) => v == null || v.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 8),
+              TextFormField(
+                controller: parentEmailController,
+                decoration: const InputDecoration(
+                  labelText: 'Parent Email',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: (v) {
+                  if (v == null || v.isEmpty) return 'Required';
+                  if (!v.contains('@')) return 'Enter a valid email address';
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
               DropdownButtonFormField<String>(
                 initialValue: parentRelationship,
                 decoration: const InputDecoration(
@@ -144,6 +171,7 @@ class _AddStudentDialogState extends State<AddStudentDialog> {
                         parentFirstName: parentFirstNameController.text.trim(),
                         parentLastName: parentLastNameController.text.trim(),
                         parentPhone: parentPhoneController.text.trim(),
+                        parentEmail: parentEmailController.text.trim(),
                         parentRelationship: parentRelationship,
                       );
                       if (context.mounted) {
